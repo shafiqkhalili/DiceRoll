@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         val randomNr = Random.nextInt(1,6)
         diceValue.text = randomNr.toString()
-        val imageName = "dice$diceValue"
+
+
 
         var drawableresource = when(randomNr){
             1 -> R.drawable.dice1
