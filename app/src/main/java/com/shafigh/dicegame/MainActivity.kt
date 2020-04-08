@@ -1,6 +1,7 @@
 package com.shafigh.dicegame
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,20 +24,32 @@ class MainActivity : AppCompatActivity() {
         rollButton = findViewById(R.id.roll_button)
         rollButton.text = "Lets Rolll"
 
+        val timer = MyCounter(1000, 75)
         rollButton.setOnClickListener {
-            //Toast.makeText(this,"Button Clicked",Toast.LENGTH_SHORT).show()
-            rollDice()
+            timer.start()
+        }
+    }
+
+    inner class MyCounter(millisInFuture: Long, countDownInterval: Long) : CountDownTimer(millisInFuture, countDownInterval) {
+
+        override fun onFinish() {
+            println("Timer Completed.")
+            //this.cancel()
         }
 
+        override fun onTick(millisUntilFinished: Long) {
+
+            println("Timer  : " + millisUntilFinished / 1000)
+            rollDice()
+        }
     }
+
 
     private fun rollDice() {
 
         diceValue = findViewById(R.id.result_text)
 
         val randomNr = Random.nextInt(1, 6)
-
-        diceValue.text = randomNr.toString()
 
         diceImage = findViewById(R.id.dice_image)
 
@@ -52,4 +65,5 @@ class MainActivity : AppCompatActivity() {
         }
         diceImage?.setImageResource(drawableresource)
     }
+
 }
